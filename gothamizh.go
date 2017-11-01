@@ -16,7 +16,7 @@ var (
 	vowels = map[string]string{
 		"00": "\u0bcd",
 		"1e": "\u0bbf",
-		"2a": "\u0bbe",
+		"0a": "\u0bbe",
 		"2e": "\u0bc0",
 		"1u": "\u0bc1",
 		"2u": "\u0bc2",
@@ -52,20 +52,35 @@ var (
 
 	uyir = map[string]string{
 		"a":  "\u0b85",
-		"aa": "\u0b86",
+		"2a": "\u0b86",
 		"i":  "\u0b87",
-		"ii": "\u0b88",
+		"2i": "\u0b88",
 		"u":  "\u0b89",
-		"uu": "\u0b8a",
+		"2u": "\u0b8a",
 		"e":  "\u0b8e",
-		"ee": "\u0b8f",
-		"ai": "\u0b90",
+		"2e": "\u0b8f",
+		"3i": "\u0b90",
 		"o":  "\u0b92",
-		"oo": "\u0b93",
+		"2o": "\u0b93",
 	}
 )
 
-var text map[string]string
+func checkmatch(in string) (string, bool) {
+	//fmt.Println("Debug : input string to checkmatch() " + in)
+	if uyir[in] != "" {
+		return uyir[in], false
+	}
+
+	if mei[in] != "" {
+		return mei[in], true
+	}
+
+	if vowels[in] != "" {
+		return vowels[in], false
+	}
+
+	return "", false
+}
 
 func prompt() {
 	fmt.Print(gothamizh + " >>")
@@ -83,9 +98,39 @@ Algo
 
 func transliteratetamil(tokens []string) {
 	for _, token := range tokens {
-		fmt.Print(token)
+		i := 1
+		s := 0
+		//fmt.Println("Debug => token " + token)
+		for i <= len(token) {
+			str, ismei := checkmatch(token[s:i])
+			if str != "" {
+				if ismei {
+					var str2 string
+					if i+3 < len(token) {
+						str2, _ = checkmatch(token[i+1 : i+3])
+						i = i + 3
+					} else {
+						str2, _ = checkmatch(token[i:])
+					}
+					//fmt.Println(str)
+					//fmt.Println(str2)
+					//fmt.Println(str + str2)
+					fmt.Print(str + str2)
+					s = i
+				} else {
+					fmt.Print(str)
+					s = i
+					i++
+				}
+			} else {
+				i++
+			}
+		}
+		fmt.Print(" ")
 	}
+	fmt.Println("")
 }
+
 func renderhelp() {
 	fmt.Println("Sample help")
 }
