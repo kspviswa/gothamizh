@@ -14,18 +14,18 @@ const (
 
 var (
 	vowels = map[string]string{
-		"00": "\u0bcd",
-		"1e": "\u0bbf",
-		"0a": "\u0bbe",
-		"2e": "\u0bc0",
-		"1u": "\u0bc1",
-		"2u": "\u0bc2",
-		"3a": "\u0bc7",
-		"4a": "\u0bcb",
-		"1o": "\u0bc6",
-		"2o": "\u0bca",
-		"3o": "\u0bcc",
-		"4o": "\u0bd7",
+		"00":  "\u0bcd",
+		"1e":  "\u0bbf",
+		"0a":  "\u0bbe",
+		"11e": "\u0bc0",
+		"1u":  "\u0bc1",
+		"2u":  "\u0bc2",
+		"3a":  "\u0bc7",
+		"4a":  "\u0bcb",
+		"1o":  "\u0bc6",
+		"2o":  "\u0bca",
+		"3o":  "\u0bcc",
+		"4o":  "\u0bd7",
 	}
 
 	mei = map[string]string{
@@ -72,11 +72,11 @@ func checkmatch(in string) (string, bool) {
 	}
 
 	if mei[in] != "" {
-		return mei[in], true
+		return mei[in], false
 	}
 
 	if vowels[in] != "" {
-		return vowels[in], false
+		return vowels[in], true
 	}
 
 	return "", false
@@ -84,6 +84,14 @@ func checkmatch(in string) (string, bool) {
 
 func prompt() {
 	fmt.Print(gothamizh + " >>")
+}
+
+func fabstring(in []string) string {
+	var out string
+	for _, s := range in {
+		out += s
+	}
+	return out
 }
 
 /*
@@ -96,39 +104,45 @@ Algo
 * until you have a match
 */
 
-func transliteratetamil(tokens []string) {
+func transliteratetamil(tokens []string) []string {
+	var tamil []string
 	for _, token := range tokens {
 		i := 1
 		s := 0
+		var strTkns []string
 		//fmt.Println("Debug => token " + token)
 		for i <= len(token) {
-			str, ismei := checkmatch(token[s:i])
+			str, isvowel := checkmatch(token[s:i])
 			if str != "" {
-				if ismei {
-					var str2 string
-					if i+3 < len(token) {
-						str2, _ = checkmatch(token[i+1 : i+3])
-						i = i + 3
-					} else {
-						str2, _ = checkmatch(token[i:])
-					}
-					//fmt.Println(str)
-					//fmt.Println(str2)
-					//fmt.Println(str + str2)
-					fmt.Print(str + str2)
-					s = i
+				//			fmt.Print("Debug000 => " + str)
+
+				//			fmt.Print("Debug001 => " + strText)
+				s = i
+				i++
+				if isvowel {
+					// Take a copy of last item of the token
+					sLast := strTkns[len(strTkns)-1]
+					// Remove the item
+					strTkns = strTkns[:len(strTkns)-1]
+					// Attach it with str to form a perfect unicode
+					smei := sLast + str
+					strTkns = append(strTkns, smei)
 				} else {
-					fmt.Print(str)
-					s = i
-					i++
+					strTkns = append(strTkns, str)
 				}
 			} else {
 				i++
 			}
 		}
-		fmt.Print(" ")
+		//	fmt.Println("Debug002 => " + strText)
+		strText := fabstring(strTkns)
+		tamil = append(tamil, strText)
 	}
-	fmt.Println("")
+	//fmt.Println("=== Debug ")
+	//for _, t := range tamil {
+	//	fmt.Println(t)
+	//}
+	return tamil
 }
 
 func renderhelp() {
@@ -154,7 +168,12 @@ func main() {
 			prompt()
 		default:
 			input := strings.Split(reader.Text(), " ")
-			transliteratetamil(input)
+			texts := transliteratetamil(input)
+			for _, output := range texts {
+				fmt.Print(output)
+				fmt.Print(" ")
+			}
+			fmt.Println()
 			prompt()
 		}
 	}
