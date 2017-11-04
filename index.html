@@ -6,13 +6,27 @@
         <script>
             $(document).ready(function(){
             $("#run").click(function(){
+                var d = $("#code").val()
+                //alert(d)
+                $.ajax({
+                    url: 'http://localhost:8080/trans',
+                    type: 'POST',
+                    data: {"text" : d},
+                    success: function (response) {
+                        $("#output").html("<h1>"+response+"</h1>")
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                }); 
                 //$("#div1").load("demo_test.txt", function(responseTxt, statusTxt, xhr){
                 //    if(statusTxt == "success")
                 //        alert("External content loaded successfully!");
                 //    if(statusTxt == "error")
                 //        alert("Error: " + xhr.status + ": " + xhr.statusText);
                 //});
-                alert("Hurray!!!!")
+                //alert("Hurray!!!!")
+                //$("#output").html("<strong>Hare O Sambho!!!</strong>")
             });
         });
         </script>
@@ -27,6 +41,8 @@ body {
 	margin: 0;
 	width: 100%;
 	height: 100%;
+    background: url("https://github.com/kspviswa/gothamizh/raw/master/go_thamozh.png") no-repeat;
+    background-position: right;
 }
 a {
 	color: #009;
@@ -110,7 +126,7 @@ a {
 	float: left;
 	padding: 15px 10px;
 
-	font-size: 20px;
+	font-size: 25px;
 	font-family: sans-serif;
 }
 #controls {
@@ -194,11 +210,22 @@ input[type=button],
 	top: 10px;
 	right: 10px;
 }
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.fit {
+    height: 80px;
+    width: 30px;
+}
 
     </style>
 	<body>
 		<div id="banner">
-            <div id="head" itemprop="name">go-தமிழ் playground</div>
+            <div id="head" itemprop="name">
+                go-தமிழ் playground
+            </div>
             <div id="controls">
                     <input type="button" value="Transliterate..." id="run">
             </div>
@@ -207,6 +234,6 @@ input[type=button],
             <textarea itemprop="description" id="code" name="code" 
             placeholder="தங்களது தமிழ் வார்த்தைகளை இங்கு உள்ளிடவும் !!!"></textarea>
 		</div>
-		<div id="output"></div>
+        <div id="output"></div>
 	</body>
 </html>

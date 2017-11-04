@@ -185,8 +185,25 @@ func htmlhandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "index.html")
 }
 
+func transliterateHandler(w http.ResponseWriter, r *http.Request) {
+	//fmt.Println("Debug===> Entering trans handler")
+	r.ParseForm()
+	text := r.Form["text"][0]
+
+	input := strings.Split(text, " ")
+	texts := transliteratetamil(input)
+	var wout string
+	for _, output := range texts {
+		wout = wout + output + " "
+	}
+
+	//fmt.Println(r.Form["text"])
+	fmt.Fprintf(w, wout)
+}
+
 func daemonMode() {
 	http.HandleFunc("/", htmlhandler)
+	http.HandleFunc("/trans", transliterateHandler)
 	fmt.Println("Server listening on port 8080....")
 	http.ListenAndServe(":8080", nil)
 }
