@@ -28,6 +28,10 @@
                 //alert("Hurray!!!!")
                 //$("#output").html("<strong>Hare O Sambho!!!</strong>")
             });
+
+            $("#help").click(function(){
+                location.href="http://localhost:8080/help"
+            });
         });
         </script>
     </head>
@@ -99,7 +103,7 @@ a {
 }
 #output {
 	position: absolute;
-	top: 75%;
+	top: 25%;
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -228,6 +232,7 @@ img {
             </div>
             <div id="controls">
                     <input type="button" value="Transliterate..." id="run">
+                    <input type="button" value="go-தமிழ் unicode help" id="help">
             </div>
 		</div>
 		<div id="wrap">

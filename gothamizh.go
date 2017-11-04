@@ -21,12 +21,13 @@ var (
 		"11e": "\u0bc0",
 		"1u":  "\u0bc1",
 		"2u":  "\u0bc2",
-		"3a":  "\u0bc7",
-		"4a":  "\u0bcb",
-		"1o":  "\u0bc6",
-		"2o":  "\u0bca",
+		"4a":  "\u0bc7",
+		"11o": "\u0bcb",
+		"3a":  "\u0bc6",
+		"1o":  "\u0bca",
 		"3o":  "\u0bcc",
 		"4o":  "\u0bd7",
+		"1i":  "\u0bc8",
 	}
 
 	mei = map[string]string{
@@ -185,6 +186,10 @@ func htmlhandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "index.html")
 }
 
+func helphandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "help.html")
+}
+
 func transliterateHandler(w http.ResponseWriter, r *http.Request) {
 	//fmt.Println("Debug===> Entering trans handler")
 	r.ParseForm()
@@ -204,6 +209,7 @@ func transliterateHandler(w http.ResponseWriter, r *http.Request) {
 func daemonMode() {
 	http.HandleFunc("/", htmlhandler)
 	http.HandleFunc("/trans", transliterateHandler)
+	http.HandleFunc("/help", helphandler)
 	fmt.Println("Server listening on port 8080....")
 	http.ListenAndServe(":8080", nil)
 }
