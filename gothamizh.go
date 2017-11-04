@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"net/http"
 	"os"
 	"strings"
 )
@@ -107,6 +108,7 @@ Algo
 func transliteratetamil(tokens []string) []string {
 	var tamil []string
 	for _, token := range tokens {
+		token = strings.ToLower(token)
 		i := 1
 		s := 0
 		var strTkns []string
@@ -149,7 +151,7 @@ func renderhelp() {
 	fmt.Println("Sample help")
 }
 
-func main() {
+func consoleMode() {
 	prompt()
 	reader := bufio.NewScanner(os.Stdin)
 	for reader.Scan() {
@@ -175,6 +177,35 @@ func main() {
 			}
 			fmt.Println()
 			prompt()
+		}
+	}
+}
+
+func htmlhandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "index.html")
+}
+
+func daemonMode() {
+	http.HandleFunc("/", htmlhandler)
+	fmt.Println("Server listening on port 8080....")
+	http.ListenAndServe(":8080", nil)
+}
+
+func main() {
+	if len(os.Args) < 2 {
+		renderhelp()
+	} else {
+		switch args := os.Args[1]; args {
+		case "-d":
+			daemonMode()
+		case "-c":
+			consoleMode()
+		case "-h":
+			fallthrough
+		case "--help":
+			fallthrough
+		default:
+			renderhelp()
 		}
 	}
 }
