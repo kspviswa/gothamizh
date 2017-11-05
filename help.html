@@ -1,0 +1,393 @@
+<!doctype html>
+<html>
+	<head>
+        <title>go-தமிழ் playground help</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#tool").click(function(){
+                location.href="http://localhost:8080"
+                });
+            });
+        </script>
+    </head>
+    <style>
+        html {
+	height: 100%;
+}
+body {
+	color: black;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+    background: url("https://github.com/kspviswa/gothamizh/raw/master/go_thamozh.png") no-repeat;
+    background-position: right;
+}
+a {
+	color: #009;
+}
+#wrap,
+#about {
+	padding: 5px;
+	margin: 0;
+
+	position: absolute;
+	top: 50px;
+	bottom: 85%;
+	left: 0;
+	right: 0;
+
+	background: #FFD;
+}
+#about {
+	display: none;
+	z-index: 1;
+	padding: 10px 40px;
+	font-size: 16px;
+	font-family: sans-serif;
+	overflow: auto;
+}
+#about p {
+	max-width: 520px;
+}
+#about ul {
+	max-width: 480px;
+}
+#about li {
+	margin-bottom: 1em;
+}
+#code, #output, pre, .lines {
+	/* The default monospace font on OS X is ugly, so specify Menlo
+	 * instead. On other systems the default monospace font will be used. */
+	font-family: Menlo, monospace;
+	font-size: 11pt;
+}
+
+#code {
+	color: black;
+	background: inherit;
+
+	width: 100%;
+	height: 100%;
+	padding: 0; margin: 0;
+	border: none;
+	outline: none;
+	resize: none;
+	wrap: off;
+	float: right;
+}
+#output {
+	position: absolute;
+	top: 75%;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 8px;
+}
+#output .system, #output .loading {
+	color: #999;
+}
+#output .stderr, #output .error {
+	color: #900;
+}
+#output pre {
+	margin: 0;
+}
+#banner {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 50px;
+	background-color: #E0EBF5;
+}
+#head {
+	float: left;
+	padding: 15px 10px;
+
+	font-size: 25px;
+	font-family: sans-serif;
+}
+#controls {
+	float: left;
+	padding: 10px 15px;
+	min-width: 245px;
+}
+#controls > input {
+	border-radius: 5px;
+}
+#aboutControls {
+	float: right;
+	padding: 10px 15px;
+}
+input[type=button],
+#importsBox {
+	height: 30px;
+	border: 1px solid #375EAB;
+	font-size: 16px;
+	font-family: sans-serif;
+	background: #375EAB;
+	color: white;
+	position: static;
+	top: 1px;
+	border-radius: 5px;
+}
+#importsBox {
+	position: relative;
+	display: inline;
+	padding: 5px 0;
+	margin-right: 5px;
+}
+#importsBox input {
+	position: relative;
+	top: -2px;
+	left: 1px;
+	height: 10px;
+	width: 10px;
+}
+#shareURL {
+	width: 280px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	background: #eee;
+	color: black;
+	height: 23px;
+}
+#embedLabel {
+	font-family: sans-serif;
+}
+.lines {
+	float: left;
+	overflow: hidden;
+	text-align: right;
+}
+.lines div {
+	padding-right: 5px;
+	color: lightgray;
+}
+.lineerror {
+	color: red;
+	background: #FDD;
+}
+.exit {
+	color: lightgray;
+}
+
+.embedded #banner {
+	display: none;
+}
+.embedded #wrap {
+	top: 0;
+}
+#embedRun {
+	display: none;
+}
+.embedded #embedRun {
+	display: block;
+	position: absolute;
+	z-index: 1;
+	top: 10px;
+	right: 10px;
+}
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.fit {
+    height: 80px;
+    width: 30px;
+}
+    </style>
+    <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+            
+            th {
+                border: 1px solid #dddddd;
+                text-align: center;
+                padding: 8px;
+            }
+
+            td {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+            
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+            </style>
+	<body>
+		<div id="banner">
+            <div id="head" itemprop="name">
+                go-தமிழ் playground help
+            </div>
+            <div id="controls">
+                    <input type="button" value="Goto go-தமிழ் playground" id="tool">
+            </div>
+		</div>
+		<div id="wrap">
+            <div id="code" name="code">
+                <h2><center>go-தமிழ் English -> தமிழ் encoding table</center></h2>
+                <p>
+                    <b><h3> Eg: tama1ellla00 => தமிழ்</h3>
+                    <br />
+                    ta => த ma1e => ம + ி = மி llla00 => ழ + ் = ழ்
+                    <br /></b>
+                <p>
+                <table style="width:30%">
+                    <caption>உயிர் | Primary </caption>
+                    <tr>
+                        <th>தமிழ்</th><th>English</th>
+                    </tr>
+                    <tr>
+                        <td>அ</td><td>a</td>
+                    </tr>
+                    <tr>
+                        <td>ஆ</td><td>2a</td>
+                    </tr>
+                    <tr>
+                        <td>இ</td><td>i</td>
+                    </tr>
+                    <tr>
+                        <td>ஈ</td><td>2i</td>
+                    </tr>
+                    <tr>
+                        <td>உ</td><td>u</td>
+                    </tr>
+                    <tr>
+                        <td>ஊ</td><td>2u</td>
+                    </tr>
+                    <tr>
+                        <td>எ</td><td>e</td>
+                    </tr>
+                    <tr>
+                        <td>ஏ</td><td>2e</td>
+                    </tr>
+                    <tr>
+                        <td>ஐ</td><td>3i</td>
+                    </tr>
+                    <tr>
+                        <td>ஒ</td><td>o</td>
+                    </tr>
+                    <tr>
+                        <td>ஓ</td><td>2o</td>
+                    </tr>
+                </table>
+                <p>
+                <table style="width:30%">
+                    <caption> மெய் | Secondary</caption>
+                    <tr>
+                        <th>தமிழ்</th><th>English</th>
+                    </tr>
+                    <tr>
+                        <td>க</td><td>ka</td>
+                    </tr>
+                    <tr>
+                        <td>ங</td><td>nga</td>
+                    </tr>
+                    <tr>
+                        <td>ச</td><td>ca</td>
+                    </tr>
+                    <tr>
+                        <td>ஞ</td><td>nya</td>
+                    </tr>
+                    <tr>
+                        <td>ஜ</td><td>ja</td>
+                    </tr>
+                    <tr>
+                        <td>ட</td><td>tta</td>
+                    </tr>
+                    <tr>
+                        <td>ண</td><td>nna</td>
+                    </tr>
+                    <tr>
+                        <td>த</td><td>ta</td>
+                    </tr>
+                    <tr>
+                        <td>ந</td><td>na</td>
+                    </tr>
+                    <tr>
+                        <td>ன</td><td>nna</td>
+                    </tr>
+                    <tr>
+                        <td>ப</td><td>pa</td>
+                    </tr>
+                    <tr>
+                        <td>ம</td><td>ma</td>
+                    </tr>
+                    <tr>
+                        <td>ய</td><td>ya</td>
+                    </tr>
+                    <tr>
+                        <td>ர</td><td>ra</td>
+                    </tr>
+                    <tr>
+                        <td>ற</td><td>rra</td>
+                    </tr>
+                    <tr>
+                        <td>ல</td><td>la</td>
+                    </tr>
+                    <tr>
+                        <td>ள</td><td>lla</td>
+                    </tr>
+                    <tr>
+                        <td>ழ</td><td>llla</td>
+                    </tr>
+                    <tr>
+                        <td>வ</td><td>va</td>
+                    </tr>
+                </table>
+                <p>
+                <table style="width:30%">
+                    <caption> உயிர்மெய் | Vowels</caption>
+                    <tr>
+                        <th>தமிழ்</th><th>English</th>
+                    </tr>
+                    <tr>
+                        <td>்</td><td>00</td>
+                    </tr>
+                    <tr>
+                        <td>ா</td><td>0a</td>
+                    </tr>
+                    <tr>
+                        <td>ி</td><td>1e</td>
+                    </tr>
+                    <tr>
+                        <td>ீ</td><td>2e</td>
+                    </tr>
+                    <tr>
+                        <td>ு</td><td>u</td>
+                    </tr>
+                    <tr>
+                        <td>ூ</td><td>2u</td>
+                    </tr>
+                    <tr>
+                        <td>ெ</td><td>3a</td>
+                    </tr>
+                    <tr>
+                        <td>ே</td><td>4a</td>
+                    </tr>
+                    <tr>
+                        <td>ொ</td><td>1o</td>
+                    </tr>
+                    <tr>
+                        <td>ோ</td><td>11o</td>
+                    </tr>
+                    <tr>
+                        <td>ௌ</td><td>3o</td>
+                    </tr>
+                    <tr>
+                        <td>ை</td><td>1i</td>
+                    </tr>
+                </table>
+            </div>
+		</div>
+	</body>
+</html>
