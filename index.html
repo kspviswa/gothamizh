@@ -2,6 +2,7 @@
 <html>
 	<head>
         <title>go-தமிழ் playground</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script>
             $(document).ready(function(){
@@ -32,6 +33,18 @@
             $("#help").click(function(){
                 location.href="http://localhost:8080/help"
             });
+
+			$("#dynamic").change(function(){
+				if ($("#dynamic").is(":checked")) {
+        		$("#run")
+    			}
+			});
+
+			$("#code").on('input', function() {
+    			if ($("#dynamic").is(":checked")) {
+        		$("#run").click();
+    			}
+			});
         });
         </script>
     </head>
@@ -98,7 +111,7 @@ a {
 	border: none;
 	outline: none;
 	resize: none;
-	wrap: off;
+	wrap: on;
 	float: right;
 }
 #output {
@@ -232,8 +245,9 @@ img {
             </div>
             <div id="controls">
                     <input type="button" value="Transliterate..." id="run">
-                    <input type="button" value="go-தமிழ் unicode help" id="help">
-            </div>
+					<input type="checkbox" id="dynamic" checked="true"> Enable auto transliterate
+					<input type="button" value="go-தமிழ் unicode help" id="help">
+			</div>
 		</div>
 		<div id="wrap">
             <textarea itemprop="description" id="code" name="code" 
